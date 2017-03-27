@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load staticfiles %}
+    <link href="https://fonts.googleapis.com/css?family=Cabin|Open+Sans" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{%static 'dashboard_app/css/style.css' %}">
+
+  </head>
+  <body>
+    <div class="navbar">
+        <img class="logo" src="{% static 'dashboard_app/img/cdlogo.png'%}" alt="">
+        <p class="app_title">User Dashboard</p>
+      <div id="nav_elements">
+          <li><a class="no_decoration" href="/users/edit">Profile</a></li>
+          <li><a class="no_decoration" href="/">Home</a></li>
+          <li><a class="no_decoration" href="/logout">Logout</a></li>
+      </div>
+    </div>
+    <!-- COPY ABOVE FOR HEADER -->
+    <div class="error">
+      {% for message in messages %}
+      <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+
+    <div class="lower_messages">
+
+    <h3>All Users</h3>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Level</th>
+        <th>Created</th>
+        <th>Updated</th>
+      </tr>
+      {% for user in users %}
+      <tr>
+        <td><a class="no_decoration red" href="/users/show/{{ user.id }}">{{ user.id }}</a></td>
+        <td>{{ user.f_name}} {{user.l_name}}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.level }}</td>
+        <td>{{ user.created_at }}</td>
+        <td>{{ user.updated_at }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  </body>
+</html>

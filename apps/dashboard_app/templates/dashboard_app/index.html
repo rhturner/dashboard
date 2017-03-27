@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load staticfiles %}
+    <link href="https://fonts.googleapis.com/css?family=Cabin|Open+Sans" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>Landing Page</title>
+    <link rel="stylesheet" type="text/css" href="{%static 'dashboard_app/css/style.css' %}">
+
+  </head>
+  <body>
+    <div class="navbar">
+        <img class="logo" src="{% static 'dashboard_app/img/cdlogo.png'%}" alt="">
+        <p class="app_title">User Dashboard</p>
+      <div id="nav_elements">
+          <li><a class="no_decoration" href="/">Home</a></li>
+          <li><a class="no_decoration" href="/login">Login</a></li>
+      </div>
+    </div>
+    <!-- COPY ABOVE FOR HEADER -->
+    <div class="interior">
+      <div class="message_box">
+        <h3>Welcome to the User Dashboard!</h3>
+        <p>This application will show the MVC framework.  The application was built by Ryan Turner</p>
+        <a class="no_decoration mybutton message_box_button" href="/login">Let's Start!</a>
+      </div>
+      <div class="lower_messages">
+        <div class="message_box_lower">
+          <h3>Manage Users</h3>
+          <p>This applications allows you to add, remove, and edit user accounts.  Each user is assigned privledges</p>
+        </div>
+        <div class="message_box_lower">
+          <h3>Leave Messages</h3>
+          <p>Users can send messages to each other and manage your inbox</p>
+        </div>
+        <div class="message_box_lower">
+          <h3>Edit User Information</h3>
+          <p>Users can go into the application and edit their information, including their password</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </body>
+</html>

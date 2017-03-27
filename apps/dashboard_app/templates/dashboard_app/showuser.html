@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load staticfiles %}
+    <link href="https://fonts.googleapis.com/css?family=Cabin|Open+Sans" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>User Profile</title>
+    <link rel="stylesheet" type="text/css" href="{%static 'dashboard_app/css/style.css' %}">
+
+  </head>
+  <body>
+    <div class="navbar">
+        <img class="logo" src="{% static 'dashboard_app/img/cdlogo.png'%}" alt="">
+        <p class="app_title">User Dashboard</p>
+      <div id="nav_elements">
+          <li><a class="no_decoration" href="/users/edit">Profile</a></li>
+          <li><a class="no_decoration" href="/dashboard">Dashboard</a></li>
+          <li><a class="no_decoration" href="/">Home</a></li>
+          <li><a class="no_decoration" href="/logout">Logout</a></li>
+      </div>
+    </div>
+    <!-- COPY ABOVE FOR HEADER -->
+    <div class="error">
+      {% for message in messages %}
+      <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+
+    <div class="lower_messages">
+        <h3>{{ user.f_name }} {{ user.l_name}}</h3>
+        <p>Registered: {{ user.created_at }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Description: {{ user.description }}</p>
+    </div>
+
+    <div class="lower_messages">
+      <p>Leave a message for {{ user.f_name }} {{ user.l_name }}</p>
+      <form class="" action="/submit_message/{{ user.id }}" method="post">
+        {% csrf_token %}
+        <textarea name="message" rows="4" cols="80"></textarea><br>
+        <input class="align_right" type="submit" name="" value="Leave Message">
+      </form>
+        {% for message in user_messages%}
+      <div class="user_messages">
+        <p class="message_margin">"{{ message.message }}"<br>said  <a href="/users/show/{{ message.sender.id }}">{{ message.sender.f_name }} {{ message.sender.l_name }}</a> on {{ message.created_at}}</p>
+      </div>
+      <div class="comment_to_message">
+        {% for comment in comments %}
+        {% if comment.message.id == message.id %}
+        <p class="comment_margin" >"{{ comment.comment }}" <br>replied <a href="/users/show/{{ comment.sender.id }}">{{ comment.sender.f_name }} {{ comment.sender.l_name }}</a> on {{ comment.created_at }}</p>
+        {% endif %}
+        {% endfor %}
+      </div>
+
+      <form class="comment_to_message" action="/submit_comment/{{ user.id }}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="message_id" value="{{ message.id }}">
+        <textarea name="comment" rows="4" cols="80"></textarea><br>
+        <input type="submit" name="" value="Reply"><br>
+      </form>
+      {% endfor %}
+    </div>
+
+
+  </body>
+</html>

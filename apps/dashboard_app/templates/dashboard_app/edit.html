@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load staticfiles %}
+    <link href="https://fonts.googleapis.com/css?family=Cabin|Open+Sans" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>User Profile</title>
+    <link rel="stylesheet" type="text/css" href="{%static 'dashboard_app/css/style.css' %}">
+
+  </head>
+  <body>
+    <div class="navbar">
+        <img class="logo" src="{% static 'dashboard_app/img/cdlogo.png'%}" alt="">
+        <p class="app_title">User Dashboard</p>
+      <div id="nav_elements">
+          <li><a class="no_decoration" href="/users/edit">Profile</a></li>
+          <li><a class="no_decoration" href="/dashboard">Dashboard</a></li>
+          <li><a class="no_decoration" href="/">Home</a></li>
+          <li><a class="no_decoration" href="/logout">Logout</a></li>
+      </div>
+    </div>
+    <!-- COPY ABOVE FOR HEADER -->
+    <div class="error">
+      {% for message in messages %}
+      <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+    <div class="lower_messages">
+        <h3>Edit Your Profile</h3>
+        <form class="" action="/users/update" method="post">
+          {% csrf_token %}
+          <p>First Name:</p>
+          <input type="text" name="f_name" value="{{ user.f_name }}"><br>
+          <p>Last Name:</p>
+          <input type="text" name="l_name" value="{{ user.l_name }}"><br>
+          <p>Email:</p>
+          <input type="text" name="email" value="{{ user.email }}"><br>
+          <p>Profile Description:</p>
+          <textarea name="description" rows="8" cols="80" placeholder="Please tell us something interesting to share with others!">{{ user.description }}</textarea><br>
+          <input type="submit" name="" value="Update my profile!">
+        </form>
+      </div>
+      <div class="lower_messages">
+        <h3>Update my Password</h3>
+        <form class="" action="/users/updatepw" method="post">
+          {% csrf_token %}
+          <p>Password:</p>
+          <input type="password" name="password" value=""><br>
+          <p>Confirm Password:</p>
+          <input type="password" name="confirm_password" value=""><br>
+          <input type="submit" name="" value="Change Password">
+        </form>
+      </div>
+
+  </body>
+</html>

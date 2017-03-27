@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load staticfiles %}
+    <link href="https://fonts.googleapis.com/css?family=Cabin|Open+Sans" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>User Profile</title>
+    <link rel="stylesheet" type="text/css" href="{%static 'dashboard_app/css/style.css' %}">
+
+  </head>
+  <body>
+    <div class="navbar">
+        <img class="logo" src="{% static 'dashboard_app/img/cdlogo.png'%}" alt="">
+        <p class="app_title">User Dashboard</p>
+      <div id="nav_elements">
+          <li><a class="no_decoration" href="/users/edit">Profile</a></li>
+          <li><a class="no_decoration" href="/dashboard">Dashboard</a></li>
+          <li><a class="no_decoration" href="/">Home</a></li>
+          <li><a class="no_decoration" href="/logout">Logout</a></li>
+      </div>
+    </div>
+    <!-- COPY ABOVE FOR HEADER -->
+    <div class="error">
+      {% for message in messages %}
+      <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+    <div class="lower_messages">
+        <h3>Confirm delete:</h3>
+        <form class="" action="/delete_user/{{ id }}" method="post">
+          {% csrf_token %}
+          <p>Do you really wish to delete user with ID: {{ id }}</p>
+          <input class="mybutton" type="submit" name="" value="Yes!"><a class="mybutton no_decoration"   href="/dashboard">Nevermind...</a>
+        </form>
+
+      </div>
+
+  </body>
+</html>
